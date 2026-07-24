@@ -9,6 +9,10 @@ params:
   form_endpoint: ""
   facebook_url: "https://www.facebook.com/"
 
+services:
+  googleAnalytics:
+    ID: "G-5Y6GE2VRGQ"
+
 caches:
   images:
     dir: ":cacheDir/images"

@@ -11,6 +11,7 @@
     <title>{{ .Title }}</title>
     <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+    {{ partial "google-analytics.html" . }}
   </head>
   <body>
     <header class="site-header" aria-label="Cabeçalho">
