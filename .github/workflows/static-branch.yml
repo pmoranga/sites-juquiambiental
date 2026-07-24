@@ -65,11 +65,11 @@ jobs:
 
           if git show-ref --verify --quiet "refs/remotes/origin/${TARGET_BRANCH}"; then
             git switch --create "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
-            git rm -r --ignore-unmatch .
           else
             git switch --orphan "${TARGET_BRANCH}"
-            git rm -r --ignore-unmatch .
           fi
+
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 
           cp -a "${publish_dir}/." .
           git add -A
