@@ -11,6 +11,7 @@
     <title>{{ .Title }}</title>
     <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+    <script src="{{ "js/contact-form.js" | relURL }}" defer></script>
     {{ partial "google-analytics.html" . }}
   </head>
   <body>
@@ -54,7 +55,7 @@
         <p class="form-call">{{ .Params.contact_title }}</p>
 
         {{ $formEndpoint := site.Params.form_endpoint | default "" }}
-        <form class="contact-form" id="contato" name="contact" method="post" action="{{ if $formEndpoint }}{{ $formEndpoint }}{{ else }}mailto:{{ .Params.email }}?subject=Contato%20pelo%20site%20JuquiAmbiental{{ end }}"{{ if not $formEndpoint }} enctype="text/plain"{{ end }}>
+        <form class="contact-form" id="contato" name="contact" {{ if $formEndpoint }}method="post" action="{{ $formEndpoint }}"{{ else }}method="get" action="#contato" data-mailto="{{ .Params.email }}" data-mail-subject="Contato pelo site JuquiAmbiental"{{ end }}>
           <input type="hidden" name="_subject" value="Contato pelo site JuquiAmbiental">
           <label class="honeypot" aria-hidden="true">
             Não preencher

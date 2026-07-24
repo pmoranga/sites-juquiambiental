@@ -67,7 +67,7 @@ Each article appears in three places:
 
 ## Contact form
 
-Static hosting cannot process form submissions by itself. The page keeps the contact form markup ready, but you need to configure a hosted form endpoint.
+Static hosting cannot process form submissions by itself. When `params.form_endpoint` is empty, the page opens the visitor's mail app with the form fields prefilled in a new email. For a better user experience, configure a hosted HTTPS form endpoint.
 
 Recommended low-friction options:
 
