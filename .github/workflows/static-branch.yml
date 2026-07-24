@@ -68,7 +68,7 @@ jobs:
             git rm -r --ignore-unmatch .
           else
             git switch --orphan "${TARGET_BRANCH}"
-            git rm -rf .
+            git rm -r --ignore-unmatch .
           fi
 
           cp -a "${publish_dir}/." .
