@@ -1,0 +1,14 @@
+baseURL: "https://juquiambiental.com/"
+locale: "pt-BR"
+title: "JuquiAmbiental"
+disableKinds:
+  - taxonomy
+  - term
+
+params:
+  form_endpoint: ""
+  facebook_url: "https://www.facebook.com/"
+
+caches:
+  images:
+    dir: ":cacheDir/images"

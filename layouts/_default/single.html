@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Summary }}">
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:description" content="{{ .Summary }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <title>{{ .Title }} | {{ site.Title }}</title>
+    <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Cabeçalho">
+      <a class="brand" href="{{ "/" | relURL }}" aria-label="JuquiAmbiental">
+        <img src="{{ "images/logo-mark.svg" | relURL }}" alt="" width="28" height="28">
+        <span>JuquiAmbiental</span>
+      </a>
+    </header>
+
+    <main class="page-shell">
+      <article class="content-page article-body">
+        <p class="eyebrow"><a href="{{ "artigos/" | relURL }}">Artigos</a></p>
+        <h1>{{ .Title }}</h1>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02/01/2006" }}</time>
+        {{ .Content }}
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <nav aria-label="Rodapé">
+        <a href="{{ "/" | relURL }}#quem-somos">Quem Somos</a>
+        <a href="{{ "/" | relURL }}artigos/">Artigos</a>
+        <a href="{{ "/" | relURL }}#contato">Requisição de Contato (Formulário)</a>
+        <a href="{{ site.Params.facebook_url }}">Nosso Facebook</a>
+      </nav>
+
+      <section class="footer-contact" aria-labelledby="footer-contact-title">
+        <h2 id="footer-contact-title">Contato</h2>
+        <p>Telefone / Whatsapp: (11) 9 7350-7395</p>
+        <p>e-mail: <a href="mailto:rafaelmoranga@gmail.com">rafaelmoranga@gmail.com</a></p>
+      </section>
+
+      <p class="copyright">JuquiAmbiental</p>
+    </footer>
+  </body>
+</html>

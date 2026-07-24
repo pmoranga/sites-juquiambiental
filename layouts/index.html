@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Params.description }}">
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:description" content="{{ .Params.description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.BaseURL }}">
+    <title>{{ .Title }}</title>
+    <link rel="icon" href="{{ "images/logo-mark.svg" | relURL }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
+  </head>
+  <body>
+    <header class="site-header" aria-label="Cabeçalho">
+      <a class="brand" href="{{ "/" | relURL }}" aria-label="JuquiAmbiental">
+        <img src="{{ "images/logo-mark.svg" | relURL }}" alt="" width="28" height="28">
+        <span>JuquiAmbiental</span>
+      </a>
+    </header>
+
+    <main class="page-shell">
+      <section class="intro" id="quem-somos" aria-labelledby="intro-title">
+        <div class="logo-panel">
+          <img src="{{ "images/juquiambiental-logo.svg" | relURL }}" alt="Juqui Ambiental Projetos e Consultoria" width="842" height="596">
+        </div>
+
+        <h1 id="intro-title">JuquiAmbiental</h1>
+        <p class="lead">{{ .Params.description }}</p>
+      </section>
+
+      {{ $articles := where site.RegularPages "Section" "artigos" }}
+      {{ if $articles }}
+        <section class="articles-home" id="artigos" aria-labelledby="articles-title">
+          <p class="eyebrow">Artigos</p>
+          <h2 id="articles-title">Orientações e casos comuns</h2>
+          <div class="article-list">
+            {{ range first 3 ($articles.ByDate.Reverse) }}
+              <article class="article-card">
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02/01/2006" }}</time>
+                <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
+                <p>{{ .Plain | truncate 620 }}</p>
+              </article>
+            {{ end }}
+          </div>
+          <a class="text-link" href="{{ "artigos/" | relURL }}">Ver todos os artigos</a>
+        </section>
+      {{ end }}
+
+      <section class="contact-section" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contato</h2>
+        <p class="form-call">{{ .Params.contact_title }}</p>
+
+        {{ $formEndpoint := site.Params.form_endpoint | default "" }}
+        <form class="contact-form" id="contato" name="contact" method="post" action="{{ if $formEndpoint }}{{ $formEndpoint }}{{ else }}mailto:{{ .Params.email }}?subject=Contato%20pelo%20site%20JuquiAmbiental{{ end }}"{{ if not $formEndpoint }} enctype="text/plain"{{ end }}>
+          <input type="hidden" name="_subject" value="Contato pelo site JuquiAmbiental">
+          <label class="honeypot" aria-hidden="true">
+            Não preencher
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+          </label>
+
+          <div class="form-grid">
+            <label>
+              <span>Nome</span>
+              <input name="nome" type="text" autocomplete="name" required>
+            </label>
+            <label>
+              <span>E-mail</span>
+              <input name="email" type="email" autocomplete="email" required>
+            </label>
+            <label>
+              <span>Telefone</span>
+              <input name="telefone" type="tel" autocomplete="tel">
+            </label>
+            <label>
+              <span>Assunto</span>
+              <input name="assunto" type="text" required>
+            </label>
+            <label class="wide">
+              <span>Localização</span>
+              <input name="localizacao" type="text" autocomplete="address-level2" placeholder="Cidade, Estado">
+            </label>
+            <label class="message">
+              <span>Descrição</span>
+              <textarea name="descricao" rows="7" required></textarea>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">Enviar</button>
+            <button class="button secondary" type="reset">Limpar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <nav aria-label="Rodapé">
+        <a href="#quem-somos">Quem Somos</a>
+        <a href="#artigos">Artigos</a>
+        <a href="#contato">Requisição de Contato (Formulário)</a>
+        <a href="{{ site.Params.facebook_url }}">Nosso Facebook</a>
+      </nav>
+
+      <section class="footer-contact" aria-labelledby="footer-contact-title">
+        <h2 id="footer-contact-title">Contato</h2>
+        <p>Telefone / Whatsapp: {{ .Params.phone }}</p>
+        <p>e-mail: <a href="mailto:{{ .Params.email }}">{{ .Params.email }}</a></p>
+      </section>
+
+      <p class="copyright">JuquiAmbiental</p>
+    </footer>
+  </body>
+</html>
