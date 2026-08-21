@@ -22,32 +22,36 @@ Build the site into `public/`:
 make build
 ```
 
-## GitHub Pages
+## Cloudflare Pages
 
-The `.github/workflows/pages.yml` workflow builds Hugo and deploys the generated `public/` directory with GitHub Pages Actions.
+Cloudflare Pages builds the Hugo source directly from the Git repository. Create
+a Git-integrated Pages project with these settings:
 
-Before the first deploy, open the repository on GitHub and set **Settings > Pages > Source** to **GitHub Actions**.
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Framework preset | `Hugo` |
+| Build command | `make build-cloudflare` |
+| Build output directory | `public` |
+| Root directory | `/` (repository root) |
 
-The custom domain file is at `static/CNAME` and contains:
-
-```text
-juquiambiental.com
-```
-
-For GitHub Pages using a custom Actions workflow, also set `juquiambiental.com` in **Settings > Pages > Custom domain**. For the apex domain, configure your DNS provider with GitHub Pages `A` records. Add a `www` CNAME only if you also want `www.juquiambiental.com`.
-
-## Static build branch
-
-The `.github/workflows/static-branch.yml` workflow builds the same Hugo site and pushes only the generated static files to a branch.
-
-Defaults:
+Add this environment variable to both the Production and Preview environments:
 
 ```text
-branch: static-build
-base_url: https://juquiambiental.com/
+HUGO_VERSION=0.164.0
 ```
 
-You can run it manually from GitHub Actions and change the branch or base URL. This is useful when a separate static webserver pulls prebuilt HTML/CSS/images from a branch instead of running Hugo.
+The Cloudflare build target uses `https://juquiambiental.com/` as the canonical
+production URL and the deployment-specific `CF_PAGES_URL` for branch previews.
+Local builds use the production URL.
+
+After the first deployment succeeds, add `juquiambiental.com` under the Pages
+project's **Custom domains** tab. Because this is an apex domain, the domain must
+be an active zone in the same Cloudflare account and use Cloudflare nameservers.
+Cloudflare will create the DNS record and TLS certificate during activation.
+
+Cloudflare rebuilds the production site whenever `main` is updated and creates
+preview deployments for other branches and pull requests.
 
 ## Articles
 
